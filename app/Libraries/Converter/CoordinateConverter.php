@@ -14,22 +14,19 @@ use App\Libraries\Coordinate;
 class CoordinateConverter
 {
     /**
-     * @param string $coordinate
+     * @param array $coordinate
      * @return Coordinate
      */
     public static function get($coordinate)
     {
-        list($latitude, $longitude) = array_map(
-            function ($input) {
-                return trim($input);
-            },
-            array_pad(
-                explode(',', $coordinate, 2),
-                2,
-                null
-            )
-        );
+        if (!is_array($coordinate)) {
+            throw new \UnexpectedValueException('Incorrect format of coordinates provided');
+        }
 
-        return new Coordinate($latitude, $longitude);
+        if (2 !== count($coordinate)) {
+            throw new \InvalidArgumentException('Incorrect number of coordinates provided');
+        }
+
+        return new Coordinate($coordinate[0], $coordinate[1]);
     }
 }

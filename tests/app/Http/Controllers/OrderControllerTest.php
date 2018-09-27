@@ -43,8 +43,8 @@ class OrderControllerTest extends TestCase
     public function createOrderShouldReturnStatusCode200AndJsonResponse()
     {
         $parameters = [
-            'origin' => '40.20361,-74.00587',
-            'destination' => '40.20888,-74.00445',
+            'origin' => [40.20361,-74.00587],
+            'destination' => [40.20888,-74.00445],
         ];
 
         $calculator = m::mock(DistanceCalculator::class);
@@ -71,8 +71,8 @@ class OrderControllerTest extends TestCase
         $this->expectException('\App\Exceptions\InvalidCoordinateException');
 
         $parameters = [
-            'origin' => '40.20361,-184.00587',
-            'destination' => '40.20888,-174.00445',
+            'origin' => [40.20361,-184.00587],
+            'destination' => [40.20888,-174.00445],
         ];
 
         $calculator = m::mock(DistanceCalculator::class);

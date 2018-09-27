@@ -54,8 +54,8 @@ class CreateOrderHandlerTest extends TestCase
         return [
             [
                 [
-                    'origin' => '40.20361,-74.00587',
-                    'destination' => '40.20888,-74.00445',
+                    'origin' => [40.20361,-74.00587],
+                    'destination' => [40.20888,-74.00445],
                 ],
                 [
                     'distance' => 555,
@@ -71,8 +71,8 @@ class CreateOrderHandlerTest extends TestCase
     public function testInvalidCoordinateThrowsException()
     {
         $parameters = [
-            'origin' => '-274.00587,-174.00587',
-            'destination' => '40.20888,-74.00445',
+            'origin' => [-274.00587,-174.00587],
+            'destination' => [40.20888,-74.00445],
         ];
 
         $calculator = m::mock(DistanceCalculator::class);

@@ -62,6 +62,13 @@ class Handler extends LaravelExceptionHandler
             );
         }
 
+        if ($exception instanceof \ErrorException) {
+            $exception = new HttpException(
+                Response::HTTP_BAD_REQUEST,
+                $exception->getMessage()
+            );
+        }
+
         $parentRender = parent::render($request, $exception);
 
         if ($parentRender instanceof JsonResponse) {

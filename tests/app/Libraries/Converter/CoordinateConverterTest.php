@@ -14,7 +14,7 @@ class CoordinateConverterTest extends TestCase
     /**
      * @param int $latitude
      * @param int $longitude
-     * @param string $coordinate
+     * @param array $coordinate
      * @dataProvider coordinateProvider
      */
     public function testCoordinate($latitude, $longitude, $coordinate)
@@ -31,8 +31,8 @@ class CoordinateConverterTest extends TestCase
     public function coordinateProvider()
     {
         return [
-            [40.20361, -74.00587, '40.20361,-74.00587'],
-            [40.20888, -74.00445, '40.20888,-74.00445'],
+            [40.20361, -74.00587, [40.20361, -74.00587]],
+            [40.20888, -74.00445, [40.20888, -74.00445]],
         ];
     }
 
@@ -41,6 +41,14 @@ class CoordinateConverterTest extends TestCase
      */
     public function testInvalidCoordinate()
     {
-        CoordinateConverter::get('-274.00587,-174.00587');
+        CoordinateConverter::get([-274.00587, -174.00587]);
+    }
+
+    /**
+     * @expectedException \UnexpectedValueException
+     */
+    public function testNonArrayCoordinate()
+    {
+        CoordinateConverter::get('-274.00587, -174.00587');
     }
 }
